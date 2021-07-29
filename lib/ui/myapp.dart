@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test_task/dependencies/provider_module.dart';
 import 'package:flutter_test_task/domain/model/user.dart';
+import 'package:flutter_test_task/domain/provider/album_provider.dart';
+import 'package:flutter_test_task/domain/provider/photo_povider.dart';
 import 'package:flutter_test_task/domain/provider/post_provider.dart';
 import 'package:flutter_test_task/domain/provider/user_provider.dart';
 import 'package:flutter_test_task/ui/screens/user_list.dart';
@@ -15,25 +17,29 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  late final UserProvider _userProvider;
   late final PostProvider _postProvider;
-  late final UserProvider users;
+  late final AlbumProvider _albumProvider;
+  late final PhotoProvider _photoProvider;
 
   @override
   void initState() {
     super.initState();
 
-    users = ProviderModule.userProvider();
+    _userProvider = ProviderModule.userProvider();
     _postProvider = ProviderModule.postProvider();
+    _albumProvider = ProviderModule.albumProvider();
+    _photoProvider = ProviderModule.photoProvider();
   }
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<UserProvider>.value(
-          value: users,
-        ),
+        Provider<UserProvider>.value(value: _userProvider),
         Provider<PostProvider>.value(value: _postProvider),
+        Provider<AlbumProvider>.value(value: _albumProvider),
+        Provider<PhotoProvider>.value(value: _photoProvider),
       ],
       child: MaterialApp(
         routes: {

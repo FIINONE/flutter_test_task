@@ -5,6 +5,8 @@ import 'package:flutter_test_task/domain/repository/repository.dart';
 class RepositoryModule {
   static UserRepository? _userRepository;
   static PostRepository? _postRepository;
+  static AlbumRepository? _albumRepository;
+  static PhotoRepository? _photoRepository;
 
   static UserRepository? userRepository() {
     _userRepository ??= UserDataRepository(
@@ -18,5 +20,19 @@ class RepositoryModule {
       ApiModule.apiPostUtil(),
     );
     return _postRepository;
+  }
+
+  static AlbumRepository? albumRepository() {
+    _albumRepository ??= AlbumDataRepository(
+      ApiModule.apiAlbumUtil(),
+    );
+    return _albumRepository;
+  }
+
+  static PhotoRepository? photoRepository() {
+    _photoRepository ??= PhotoDataRepository(
+      ApiModule.apiPhotoUtil(),
+    );
+    return _photoRepository;
   }
 }

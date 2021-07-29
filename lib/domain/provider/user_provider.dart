@@ -7,6 +7,8 @@ import 'package:flutter_test_task/ui/screens/user_profile.dart';
 class UserProvider {
   UserRepository? _userRepository;
 
+  int? index;
+
   UserProvider(
     this._userRepository,
   );
@@ -19,5 +21,9 @@ class UserProvider {
   void showUser(BuildContext context, User user) {
     Navigator.of(context)
         .pushNamed(UserProfileScreen.userProfile, arguments: user);
+  }
+
+  void currientIndex(int index) {
+    this.index = index;
   }
 }

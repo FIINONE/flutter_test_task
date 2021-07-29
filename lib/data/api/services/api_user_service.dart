@@ -3,10 +3,11 @@ import 'dart:developer';
 // import 'dart:developer';
 
 import 'package:flutter_test_task/data/api/models/users/user.dart';
+import 'package:flutter_test_task/data/api/services/constants.dart';
 import 'package:http/http.dart' as http;
 
 class ApiUserGet {
-  final Uri url = Uri.parse('https://jsonplaceholder.typicode.com/users');
+  final Uri url = Uri.https(Constants.authority, Constants.usersPath);
 
   Future<List<ApiUser>?> getApiUsers() async {
     try {

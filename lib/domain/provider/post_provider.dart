@@ -1,5 +1,4 @@
 import 'package:flutter_test_task/domain/model/post.dart';
-import 'package:flutter_test_task/domain/model/user.dart';
 import 'package:flutter_test_task/domain/repository/repository.dart';
 
 class PostProvider {
