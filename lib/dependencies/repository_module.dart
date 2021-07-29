@@ -7,6 +7,7 @@ class RepositoryModule {
   static PostRepository? _postRepository;
   static AlbumRepository? _albumRepository;
   static PhotoRepository? _photoRepository;
+  static CommentRepository? _commentRepository;
 
   static UserRepository? userRepository() {
     _userRepository ??= UserDataRepository(
@@ -34,5 +35,12 @@ class RepositoryModule {
       ApiModule.apiPhotoUtil(),
     );
     return _photoRepository;
+  }
+
+  static CommentRepository? commentRepository() {
+    _commentRepository ??= CommentDataRepository(
+      ApiModule.apiCommentUtil(),
+    );
+    return _commentRepository;
   }
 }

@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter_test_task/data/api/services/api_album_service.dart';
+import 'package:flutter_test_task/data/api/services/api_comment_service.dart';
 import 'package:flutter_test_task/data/api/services/api_photo_service.dart';
 import 'package:flutter_test_task/data/api/services/api_post_service.dart';
 import 'package:flutter_test_task/data/api/utilities/api_util.dart';
@@ -9,6 +12,7 @@ class ApiModule {
   static ApiPostUtil? _apiPostUtil;
   static ApiAlbumUtil? _apiAlbumUtil;
   static ApiPhotoUtil? _apiPhotoUtil;
+  static ApiCommentUtil? _apiCommentUtil;
 
   static ApiUserUtil? apiUserUtil() {
     _apiUserUtil ??= ApiUserUtil(ApiUserGet());
@@ -28,5 +32,10 @@ class ApiModule {
   static ApiPhotoUtil? apiPhotoUtil() {
     _apiPhotoUtil ??= ApiPhotoUtil(ApiPhotoGet());
     return _apiPhotoUtil;
+  }
+
+  static ApiCommentUtil? apiCommentUtil() {
+    _apiCommentUtil ??= ApiCommentUtil(ApiCommentGet());
+    return _apiCommentUtil;
   }
 }

@@ -1,23 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test_task/domain/model/user.dart';
-import 'package:flutter_test_task/domain/provider/user_provider.dart';
-import 'package:flutter_test_task/ui/widgets/user_albums_preview.dart';
-import 'package:flutter_test_task/ui/widgets/user_post_preview.dart';
-import 'package:provider/provider.dart';
-// import 'package:flutter_test_task/domain/model/user.dart';
 
-class UserProfileScreen extends StatelessWidget {
+import 'package:flutter_test_task/domain/model/user.dart';
+import 'package:flutter_test_task/ui/screens/user_albums.dart';
+import 'package:flutter_test_task/ui/screens/user_posts.dart';
+import 'package:flutter_test_task/ui/widgets/user_profile_overview.dart';
+
+class UserProfileScreen extends StatefulWidget {
   static String userProfile = '/users/user';
 
   final User user;
   const UserProfileScreen({Key? key, required this.user}) : super(key: key);
 
   @override
+  _UserProfileScreenState createState() => _UserProfileScreenState();
+}
+
+class _UserProfileScreenState extends State<UserProfileScreen> {
+  int currentIndex = 0;
+
+  late final List<Widget> widgets;
+
+  @override
+  void initState() {
+    super.initState();
+    widgets = [
+      UserProfileOverview(user: widget.user),
+      UserPostsScreen(userIndex: widget.user.id),
+      UserAlbumsScreen(userIndex: widget.user.id),
+    ];
+  }
+
+  @override
   Widget build(BuildContext context) {
-    int index = context.watch<UserProvider>().index ?? 0;
     return Scaffold(
       appBar: AppBar(
-        title: Text(user.username),
+        title: Text(widget.user.username),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -25,41 +42,17 @@ class UserProfileScreen extends StatelessWidget {
           color: Colors.blue[100],
           child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: ListView(
-              children: [
-                ListTile(title: Text(user.name)),
-                ListTile(title: Text(user.email)),
-                ListTile(title: Text(user.phone)),
-                ListTile(title: Text(user.website)),
-                const SizedBox(height: 20),
-                const Text('Company:'),
-                Text(user.company.name),
-                Text(user.company.bs),
-                Text(
-                  user.company.catchPhrase,
-                  style: const TextStyle(fontStyle: FontStyle.italic),
-                ),
-                const SizedBox(height: 20),
-                const Text('Address:'),
-                Text(
-                    '${user.address.suite}, ${user.address.street}, ${user.address.city}, ${user.address.zipcode}'),
-                SizedBox(
-                  height: 150,
-                  child: UserPostsPreview(userId: user.id),
-                ),
-                SizedBox(
-                  height: 150,
-                  width: MediaQuery.of(context).size.width,
-                  child: UserAlbumsPreview(userId: user.id),
-                ),
-              ],
-            ),
+            child: widgets[currentIndex],
           ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: index,
-        onTap: (int index) => context.read<UserProvider>().currientIndex(index),
+        currentIndex: currentIndex,
+        onTap: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

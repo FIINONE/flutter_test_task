@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test_task/dependencies/provider_module.dart';
 import 'package:flutter_test_task/domain/model/user.dart';
 import 'package:flutter_test_task/domain/provider/album_provider.dart';
+import 'package:flutter_test_task/domain/provider/comment_provider.dart';
 import 'package:flutter_test_task/domain/provider/photo_povider.dart';
 import 'package:flutter_test_task/domain/provider/post_provider.dart';
 import 'package:flutter_test_task/domain/provider/user_provider.dart';
+import 'package:flutter_test_task/ui/screens/user_comments.dart';
 import 'package:flutter_test_task/ui/screens/user_list.dart';
 import 'package:flutter_test_task/ui/screens/user_profile.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +23,7 @@ class _MyAppState extends State<MyApp> {
   late final PostProvider _postProvider;
   late final AlbumProvider _albumProvider;
   late final PhotoProvider _photoProvider;
+  late final CommentProvider _commentProvider;
 
   @override
   void initState() {
@@ -30,6 +33,7 @@ class _MyAppState extends State<MyApp> {
     _postProvider = ProviderModule.postProvider();
     _albumProvider = ProviderModule.albumProvider();
     _photoProvider = ProviderModule.photoProvider();
+    _commentProvider = ProviderModule.commentProvider();
   }
 
   @override
@@ -40,6 +44,7 @@ class _MyAppState extends State<MyApp> {
         Provider<PostProvider>.value(value: _postProvider),
         Provider<AlbumProvider>.value(value: _albumProvider),
         Provider<PhotoProvider>.value(value: _photoProvider),
+        Provider<CommentProvider>.value(value: _commentProvider),
       ],
       child: MaterialApp(
         routes: {
@@ -50,6 +55,11 @@ class _MyAppState extends State<MyApp> {
             return UserProfileScreen(
               user: user,
             );
+          },
+          CommentsScreen.comments: (context) {
+            final postId = ModalRoute.of(context)?.settings.arguments as int;
+
+            return CommentsScreen(postId: postId);
           },
         },
         initialRoute: UserListScreen.userlist,

@@ -1,5 +1,6 @@
 import 'package:flutter_test_task/dependencies/repository_module.dart';
 import 'package:flutter_test_task/domain/provider/album_provider.dart';
+import 'package:flutter_test_task/domain/provider/comment_provider.dart';
 import 'package:flutter_test_task/domain/provider/photo_povider.dart';
 import 'package:flutter_test_task/domain/provider/post_provider.dart';
 import 'package:flutter_test_task/domain/provider/user_provider.dart';
@@ -26,6 +27,12 @@ class ProviderModule {
   static PhotoProvider photoProvider() {
     return PhotoProvider(
       RepositoryModule.photoRepository(),
+    );
+  }
+
+  static CommentProvider commentProvider() {
+    return CommentProvider(
+      RepositoryModule.commentRepository(),
     );
   }
 }

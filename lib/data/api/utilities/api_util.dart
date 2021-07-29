@@ -4,14 +4,17 @@ import 'package:flutter_test_task/data/api/models/photos/photo.dart';
 import 'package:flutter_test_task/data/api/models/posts/post.dart';
 import 'package:flutter_test_task/data/api/models/users/user.dart';
 import 'package:flutter_test_task/data/api/services/api_album_service.dart';
+import 'package:flutter_test_task/data/api/services/api_comment_service.dart';
 import 'package:flutter_test_task/data/api/services/api_photo_service.dart';
 import 'package:flutter_test_task/data/api/services/api_post_service.dart';
 import 'package:flutter_test_task/data/api/services/api_user_service.dart';
 import 'package:flutter_test_task/data/mapper/album_mapper.dart';
+import 'package:flutter_test_task/data/mapper/comment_mapper.dart';
 import 'package:flutter_test_task/data/mapper/photo_mapper.dart';
 import 'package:flutter_test_task/data/mapper/post_mapper.dart';
 import 'package:flutter_test_task/data/mapper/user_mapper.dart';
 import 'package:flutter_test_task/domain/model/album.dart';
+import 'package:flutter_test_task/domain/model/comment.dart';
 import 'package:flutter_test_task/domain/model/photo.dart';
 import 'package:flutter_test_task/domain/model/post.dart';
 import 'package:flutter_test_task/domain/model/user.dart';
@@ -68,5 +71,20 @@ class ApiPhotoUtil {
     final List<Photo> photos =
         apiPhotos!.map((apiPhoto) => PhotoMapper.mapper(apiPhoto)).toList();
     return photos;
+  }
+}
+
+class ApiCommentUtil {
+  final ApiCommentGet _apiCommentGet;
+
+  ApiCommentUtil(this._apiCommentGet);
+
+  Future<List<Comment>> getComments(Map<String, String> postId) async {
+    final apiComments = await _apiCommentGet.getCommits(postId);
+
+    final List<Comment> commets = apiComments!
+        .map((apiCompany) => ApiCommentMappper.mapper(apiCompany))
+        .toList();
+    return commets;
   }
 }

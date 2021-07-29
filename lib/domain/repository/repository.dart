@@ -1,4 +1,5 @@
 import 'package:flutter_test_task/domain/model/album.dart';
+import 'package:flutter_test_task/domain/model/comment.dart';
 import 'package:flutter_test_task/domain/model/photo.dart';
 import 'package:flutter_test_task/domain/model/post.dart';
 import 'package:flutter_test_task/domain/model/user.dart';
@@ -17,4 +18,8 @@ abstract class AlbumRepository {
 
 abstract class PhotoRepository {
   Future<List<Photo>> getPhotos(Map<String, String> albumId);
+}
+
+abstract class CommentRepository {
+  Future<List<Comment>> getCommets(Map<String, String> postId);
 }

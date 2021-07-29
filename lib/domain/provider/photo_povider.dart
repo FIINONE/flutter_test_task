@@ -14,7 +14,6 @@ class PhotoProvider {
     };
 
     final photos = await _photoRepository!.getPhotos(albumId);
-    log('фотки $photos');
     return photos;
   }
 }
