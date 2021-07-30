@@ -7,8 +7,7 @@ class CommentProvider {
   CommentProvider(this._commentRepository);
 
   Future<List<Comment>> getComments(int postIndex) async {
-    final Map<String, String> postId = {'postId': postIndex.toString()};
-    final comments = _commentRepository!.getCommets(postId);
+    final comments = _commentRepository!.getCommets(postIndex);
     return comments;
   }
 }

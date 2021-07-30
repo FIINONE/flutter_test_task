@@ -9,17 +9,17 @@ abstract class UserRepository {
 }
 
 abstract class PostRepository {
-  Future<List<Post>> getPosts(Map<String, String> userId);
+  Future<List<Post>> getPosts(int userId);
 }
 
 abstract class AlbumRepository {
-  Future<List<Album>> getAlbums(Map<String, String> userId);
+  Future<List<Album>> getAlbums(int userId);
 }
 
 abstract class PhotoRepository {
-  Future<List<Photo>> getPhotos(Map<String, String> albumId);
+  Future<List<Photo>> getPhotos(int albumId);
 }
 
 abstract class CommentRepository {
-  Future<List<Comment>> getCommets(Map<String, String> postId);
+  Future<List<Comment>> getCommets(int postId);
 }

@@ -9,10 +9,7 @@ class PostProvider {
   PostProvider(this._postRepository);
 
   Future<List<Post>> getPost(int userIndex) async {
-    final Map<String, String> userId = <String, String>{
-      'userId': userIndex.toString()
-    };
-    final List<Post> posts = await _postRepository!.getPosts(userId);
+    final List<Post> posts = await _postRepository!.getPosts(userIndex);
     return posts;
   }
 

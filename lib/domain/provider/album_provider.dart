@@ -8,9 +8,7 @@ class AlbumProvider {
 
   AlbumProvider(this._albumRepository);
 
-  Future<List<Album>> getAlbums(int id) async {
-    final Map<String, String> userId = {'userId': id.toString()};
-
+  Future<List<Album>> getAlbums(int userId) async {
     final albums = await _albumRepository!.getAlbums(userId);
     return albums;
   }
