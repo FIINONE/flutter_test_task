@@ -8,7 +8,7 @@ class PhotoProvider {
 
   PhotoProvider(this._photoRepository);
 
-  Future<List<Photo>> getAlbumPhotoPreview(int id) async {
+  Future<List<Photo>> getPhotos(int id) async {
     final Map<String, String> albumId = {
       'albumId': id.toString(),
     };

@@ -8,6 +8,7 @@ import 'package:flutter_test_task/domain/provider/post_provider.dart';
 import 'package:flutter_test_task/domain/provider/user_provider.dart';
 import 'package:flutter_test_task/ui/screens/user_comments.dart';
 import 'package:flutter_test_task/ui/screens/user_list.dart';
+import 'package:flutter_test_task/ui/screens/user_photos.dart';
 import 'package:flutter_test_task/ui/screens/user_profile.dart';
 import 'package:provider/provider.dart';
 
@@ -48,19 +49,21 @@ class _MyAppState extends State<MyApp> {
       ],
       child: MaterialApp(
         routes: {
-          UserListScreen.userlist: (context) => const UserListScreen(),
-          UserProfileScreen.userProfile: (context) {
+          UserListScreen.userlist: (BuildContext context) =>
+              const UserListScreen(),
+          UserProfileScreen.userProfile: (BuildContext context) {
             final User user =
                 ModalRoute.of(context)?.settings.arguments as User;
-            return UserProfileScreen(
-              user: user,
-            );
+            return UserProfileScreen(user: user);
           },
-          CommentsScreen.comments: (context) {
+          CommentsScreen.comments: (BuildContext context) {
             final postId = ModalRoute.of(context)?.settings.arguments as int;
-
             return CommentsScreen(postId: postId);
           },
+          PhotosScreen.photos: (BuildContext context) {
+            final albumId = ModalRoute.of(context)?.settings.arguments as int;
+            return PhotosScreen(albumId: albumId);
+          }
         },
         initialRoute: UserListScreen.userlist,
       ),

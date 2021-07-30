@@ -46,7 +46,7 @@ class PhotoDataRepository extends PhotoRepository {
 
   @override
   Future<List<Photo>> getPhotos(Map<String, String> albumId) {
-    return _apiPhotoUtil!.getPhotoAlbumPreview(albumId);
+    return _apiPhotoUtil!.getPhotos(albumId);
   }
 }
 

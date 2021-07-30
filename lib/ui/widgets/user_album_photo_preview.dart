@@ -14,7 +14,7 @@ class AlbumPhotoPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final photoModel =
-        context.read<PhotoProvider>().getAlbumPhotoPreview(albumId);
+        context.read<PhotoProvider>().getPhotos(albumId);
     return FutureBuilder<List<Photo>>(
       future: photoModel,
       builder: (context, snapshot) {

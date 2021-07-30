@@ -6,7 +6,7 @@ import 'package:flutter_test_task/data/api/services/constants.dart';
 import 'package:flutter_test_task/data/api/models/photos/photo.dart';
 
 class ApiPhotoGet {
-  Future<List<ApiPhoto>?> getAlbumPhotoPreview(
+  Future<List<ApiPhoto>?> getPhotos(
     Map<String, String> albumId,
   ) async {
     final Map<String, String> quiryParam = albumId;

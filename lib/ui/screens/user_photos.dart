@@ -1,38 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test_task/domain/model/comment.dart';
-import 'package:flutter_test_task/domain/provider/comment_provider.dart';
 import 'package:provider/provider.dart';
 
-class CommentsScreen extends StatelessWidget {
-  static const String comments = '/users/user/comments';
-  final int postId;
+import 'package:flutter_test_task/domain/model/photo.dart';
+import 'package:flutter_test_task/domain/provider/photo_povider.dart';
 
-  const CommentsScreen({
+class PhotosScreen extends StatelessWidget {
+  static const String photos = '/users/user/photos';
+
+  final int albumId;
+
+  const PhotosScreen({
     Key? key,
-    required this.postId,
+    required this.albumId,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final commentsModel = context.read<CommentProvider>().getComments(postId);
+    final photosModel = context.read<PhotoProvider>().getPhotos(albumId);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('User`s Comments'),
+        title: const Text('User`s Photos'),
       ),
-      body: FutureBuilder<List<Comment>>(
-        future: commentsModel,
+      body: FutureBuilder<List<Photo>>(
+        future: photosModel,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView.separated(
               itemCount: snapshot.data!.length,
               itemBuilder: (context, int index) {
                 return ListTile(
-                  title: Text(snapshot.data![index].name),
-                  subtitle: Text(
-                    snapshot.data![index].email,
-                    maxLines: 1,
-                    overflow: TextOverflow.fade,
-                  ),
+                  title: Text(snapshot.data![index].title),
                 );
               },
               separatorBuilder: (context, int index) {

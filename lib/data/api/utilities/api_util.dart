@@ -64,9 +64,9 @@ class ApiPhotoUtil {
 
   ApiPhotoUtil(this._apiPhotoGet);
 
-  Future<List<Photo>> getPhotoAlbumPreview(Map<String, String> albumId) async {
+  Future<List<Photo>> getPhotos(Map<String, String> albumId) async {
     final List<ApiPhoto>? apiPhotos =
-        await _apiPhotoGet.getAlbumPhotoPreview(albumId);
+        await _apiPhotoGet.getPhotos(albumId);
 
     final List<Photo> photos =
         apiPhotos!.map((apiPhoto) => PhotoMapper.mapper(apiPhoto)).toList();

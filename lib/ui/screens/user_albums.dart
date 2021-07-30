@@ -22,11 +22,17 @@ class UserAlbumsScreen extends StatelessWidget {
           return ListView.separated(
             itemCount: snapshot.data!.length,
             itemBuilder: (context, int index) {
-              return Row(
-                children: [
-                  AlbumPhotoPreview(albumId: snapshot.data![index].id),
-                  Expanded(child: Text(snapshot.data![index].title)),
-                ],
+              return GestureDetector(
+                child: Row(
+                  children: [
+                    AlbumPhotoPreview(albumId: snapshot.data![index].id),
+                    Expanded(child: Text(snapshot.data![index].title)),
+                  ],
+                ),
+                onTap: () => context.read<AlbumProvider>().showPhotos(
+                      context,
+                      snapshot.data![index].id,
+                    ),
               );
             },
             separatorBuilder: (context, int index) {
