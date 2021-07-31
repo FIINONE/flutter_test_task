@@ -18,14 +18,14 @@ class ApiPhotoGet {
 
       if (response.statusCode == 200) {
         final String body = response.body;
-        ApiPhotoCacheGet().setCommentCache(key, body);
+      await  ApiPhotoCacheGet().setCommentCache(key, body);
 
         final list = json.decode(body) as List<dynamic>;
         final photos = list
             .map((dynamic post) =>
                 ApiPhoto.fromJson(post as Map<String, dynamic>))
             .toList();
-        log('$photos');
+        log('$albumId: $photos');
         return photos;
       }
     } catch (e) {

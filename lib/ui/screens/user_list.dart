@@ -23,6 +23,7 @@ class UserListScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('User List'),
+        centerTitle: true,
       ),
       body: FutureBuilder<List<User>>(
         future: _modelUsers,
@@ -32,6 +33,7 @@ class UserListScreen extends StatelessWidget {
               itemCount: snapshot.data!.length,
               itemBuilder: (context, int index) {
                 return ListTile(
+                  leading: const Icon(Icons.account_circle),
                   title: Text(
                     'Username: ${snapshot.data![index].username}',
                   ),

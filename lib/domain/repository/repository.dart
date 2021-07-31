@@ -22,4 +22,6 @@ abstract class PhotoRepository {
 
 abstract class CommentRepository {
   Future<List<Comment>> getCommets(int postId);
+  Future<void> postComment(
+      int postIndex, String name, String email, String body);
 }

@@ -8,7 +8,7 @@ class ApiPhotoCacheGet {
 
   Future<void> setCommentCache(String key, String body) async {
     final shared = await _shared;
-    shared.setString(key, body);
+    await shared.setString(key, body);
   }
 
   Future<List<ApiPhoto>?> getPhotosCache(int albumId) async {
@@ -18,8 +18,8 @@ class ApiPhotoCacheGet {
     if (body != null) {
       final list = json.decode(body) as List<dynamic>;
       final apiPhotos = list
-          .map((dynamic json) =>
-              ApiPhoto.fromJson(json as Map<String, dynamic>))
+          .map(
+              (dynamic json) => ApiPhoto.fromJson(json as Map<String, dynamic>))
           .toList();
       return apiPhotos;
     }

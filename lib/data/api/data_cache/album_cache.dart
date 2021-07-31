@@ -8,7 +8,7 @@ class ApiAlbumCacheGet {
 
   Future<void> setAlbumCache(String key, String body) async {
     final shared = await _shared;
-    shared.setString(key, body);
+    await shared.setString(key, body);
   }
 
   Future<List<ApiAlbum>?> getAlbumsCache(int userId) async {

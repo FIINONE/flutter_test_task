@@ -23,7 +23,7 @@ class ApiAlbumGet {
 
       if (response.statusCode == 200) {
         final String body = response.body;
-        ApiAlbumCacheGet().setAlbumCache(key, body);
+        await ApiAlbumCacheGet().setAlbumCache(key, body);
 
         final list = json.decode(body) as List<dynamic>;
         final albums = list

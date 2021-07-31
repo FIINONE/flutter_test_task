@@ -20,7 +20,7 @@ class ApiPostGet {
 
       if (response.statusCode == 200) {
         final String body = response.body;
-        ApiPostCacheGet().setPostCache(key, body);
+        await ApiPostCacheGet().setPostCache(key, body);
 
         final postList = json.decode(body) as List<dynamic>;
 

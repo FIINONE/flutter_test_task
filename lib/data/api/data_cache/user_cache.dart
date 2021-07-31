@@ -9,7 +9,7 @@ class ApiUserCacheGet {
 
   Future<void> setUserCache(String key, String body) async {
     final shared = await _shared;
-    shared.setString(key, body);
+    await shared.setString(key, body);
   }
 
   Future<List<ApiUser>?> getUserCache() async {

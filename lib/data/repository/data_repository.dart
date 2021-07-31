@@ -60,4 +60,10 @@ class CommentDataRepository extends CommentRepository {
   Future<List<Comment>> getCommets(int postId) {
     return _apiCommentUtil!.getComments(postId);
   }
+
+  @override
+  Future<void> postComment(
+      int postIndex, String name, String email, String body) async {
+    _apiCommentUtil!.postComment(postIndex, name, email, body);
+  }
 }

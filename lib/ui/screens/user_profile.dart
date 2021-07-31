@@ -18,12 +18,12 @@ class UserProfileScreen extends StatefulWidget {
 class _UserProfileScreenState extends State<UserProfileScreen> {
   int currentIndex = 0;
 
-  late final List<Widget> widgets;
+  late final List<Widget> userPreviewInfo;
 
   @override
   void initState() {
     super.initState();
-    widgets = [
+    userPreviewInfo = <Widget>[
       UserProfileOverview(user: widget.user),
       UserPostsScreen(userIndex: widget.user.id),
       UserAlbumsScreen(userIndex: widget.user.id),
@@ -34,15 +34,35 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(widget.user.username),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          color: Colors.blue[100],
-          child: Padding(
+      body: GestureDetector(
+        onHorizontalDragEnd: (DragEndDetails detail) {
+          setState(() {
+            if (detail.primaryVelocity! < 0) {
+              currentIndex += 1;
+              if (currentIndex > 2) {
+                currentIndex = 2;
+              }
+            }
+            if (detail.primaryVelocity! > 0) {
+              currentIndex -= 1;
+              if (currentIndex < 0) {
+                currentIndex = 0;
+              }
+            }
+          });
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Container(
             padding: const EdgeInsets.all(16.0),
-            child: widgets[currentIndex],
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16.0),
+              color: Colors.blue[50],
+            ),
+            child: userPreviewInfo[currentIndex],
           ),
         ),
       ),

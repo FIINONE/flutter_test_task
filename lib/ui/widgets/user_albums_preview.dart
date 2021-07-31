@@ -22,6 +22,8 @@ class UserAlbumsPreview extends StatelessWidget {
         if (snapshot.hasData) {
           return ListView.builder(
             itemCount: 3,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, int index) {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -29,7 +31,12 @@ class UserAlbumsPreview extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AlbumPhotoPreview(albumId: snapshot.data![index].id),
-                    Expanded(child: Text(snapshot.data![index].title))
+                    Expanded(
+                        child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 8.0, top: 8.0, right: 8.0),
+                      child: Text(snapshot.data![index].title),
+                    ))
                   ],
                 ),
               );

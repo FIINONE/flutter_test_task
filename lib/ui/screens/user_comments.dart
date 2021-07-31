@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test_task/domain/model/comment.dart';
 import 'package:flutter_test_task/domain/provider/comment_provider.dart';
+import 'package:flutter_test_task/ui/widgets/comment_form.dart';
 import 'package:provider/provider.dart';
 
 class CommentsScreen extends StatelessWidget {
-  static const String comments = '/users/user/comments';
+  static const String comments = '/users/user/post/comments';
   final int postId;
 
   const CommentsScreen({
@@ -14,7 +15,10 @@ class CommentsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final commentsModel = context.read<CommentProvider>().getComments(postId);
+    final Future<List<Comment>> commentsModel;
+    // final List<Comment> model = context.watch<CommentProvider>().comments!;
+    // commentsModel = Future<List<Comment>>.value(model);
+    commentsModel = context.watch<CommentProvider>().getComments(postId);
     return Scaffold(
       appBar: AppBar(
         title: const Text('User`s Comments'),
@@ -26,13 +30,22 @@ class CommentsScreen extends StatelessWidget {
             return ListView.separated(
               itemCount: snapshot.data!.length,
               itemBuilder: (context, int index) {
-                return ListTile(
-                  title: Text(snapshot.data![index].name),
+                return ExpansionTile(
+                  title: Text('Name: ${snapshot.data![index].name}'),
                   subtitle: Text(
-                    snapshot.data![index].email,
+                    'Email: ${snapshot.data![index].email}',
                     maxLines: 1,
                     overflow: TextOverflow.fade,
                   ),
+                  childrenPadding: const EdgeInsets.only(
+                      left: 16.0, bottom: 8.0, right: 16.0),
+                  expandedAlignment: Alignment.topLeft,
+                  children: [
+                    Text(
+                      snapshot.data![index].body,
+                      textAlign: TextAlign.start,
+                    ),
+                  ],
                 );
               },
               separatorBuilder: (context, int index) {
@@ -43,6 +56,9 @@ class CommentsScreen extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
         },
+      ),
+      floatingActionButton: CommentSendForm(
+        postIndex: postId,
       ),
     );
   }

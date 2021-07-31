@@ -8,7 +8,7 @@ class ApiPostCacheGet {
 
   Future<void> setPostCache(String key, String body) async {
     final shared = await _shared;
-    shared.setString(key, body);
+   await shared.setString(key, body);
   }
 
   Future<List<ApiPost>?> getPostCache(int userId) async {

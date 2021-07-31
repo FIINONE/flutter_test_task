@@ -23,6 +23,7 @@ class UserPostsScreen extends StatelessWidget {
             itemCount: snapshot.data!.length,
             itemBuilder: (context, int index) {
               return ListTile(
+                leading: const Icon(Icons.article),
                 title: Text(snapshot.data![index].title),
                 subtitle: Text(
                   snapshot.data![index].body,

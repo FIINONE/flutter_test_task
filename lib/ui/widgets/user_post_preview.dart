@@ -14,15 +14,19 @@ class UserPostsPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final postModel = context.read<PostProvider>().getPost(userId);
+    final Future<List<Post>> postModel =
+        context.read<PostProvider>().getPost(userId);
     return FutureBuilder<List<Post>>(
       future: postModel,
-      builder: (context, snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<List<Post>> snapshot) {
         if (snapshot.hasData) {
           return ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: 3,
-            itemBuilder: (context, int index) {
+            itemBuilder: (BuildContext context, int index) {
               return ListTile(
+                leading: const Icon(Icons.article),
                 title: Text(snapshot.data![index].title),
                 subtitle: Text(
                   snapshot.data![index].body,
@@ -33,7 +37,7 @@ class UserPostsPreview extends StatelessWidget {
             },
           );
         }
-        return const CircularProgressIndicator();
+        return const Center(child: CircularProgressIndicator());
       },
     );
   }

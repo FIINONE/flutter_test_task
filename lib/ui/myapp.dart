@@ -9,6 +9,7 @@ import 'package:flutter_test_task/domain/provider/user_provider.dart';
 import 'package:flutter_test_task/ui/screens/user_comments.dart';
 import 'package:flutter_test_task/ui/screens/user_list.dart';
 import 'package:flutter_test_task/ui/screens/user_photos.dart';
+import 'package:flutter_test_task/ui/screens/user_posts.dart';
 import 'package:flutter_test_task/ui/screens/user_profile.dart';
 import 'package:provider/provider.dart';
 
@@ -45,7 +46,7 @@ class _MyAppState extends State<MyApp> {
         Provider<PostProvider>.value(value: _postProvider),
         Provider<AlbumProvider>.value(value: _albumProvider),
         Provider<PhotoProvider>.value(value: _photoProvider),
-        Provider<CommentProvider>.value(value: _commentProvider),
+        ChangeNotifierProvider<CommentProvider>.value(value: _commentProvider),
       ],
       child: MaterialApp(
         routes: {

@@ -110,17 +110,33 @@ class ApiCommentUtil {
 
   ApiCommentUtil(this._apiCommentGet, this._apiCommentCacheGet);
 
-  Future<List<Comment>> getComments(int postId) async {
+  Future<List<Comment>> getComments(
+    int postId,
+  ) async {
     List<ApiComment>? apiComments;
     final bool containsKey = await _apiCommentCacheGet.containsKey(postId);
     if (containsKey == true) {
       apiComments = await _apiCommentCacheGet.getCommentCache(postId);
     }
-    apiComments = await _apiCommentGet.getCommits(postId);
+    apiComments ??= await _apiCommentGet.getCommits(postId);
+
+    ApiComment? fakeComment;
+    final bool fakeCommentKey =
+        await _apiCommentCacheGet.containsFakeKey(postId);
+    if (fakeCommentKey == true) {
+      fakeComment = await _apiCommentCacheGet.getFakeCommentCache(postId);
+      apiComments!.add(fakeComment!);
+    }
 
     final List<Comment> commets = apiComments!
         .map((ApiComment apiCompany) => ApiCommentMappper.mapper(apiCompany))
         .toList();
+
     return commets;
+  }
+
+  Future<void> postComment(
+      int postId, String name, String email, String body) async {
+    await _apiCommentGet.postComment(postId, name, email, body);
   }
 }
